@@ -1,0 +1,82 @@
+{
+	"name": "discord-sharing-code",
+	"displayName": "Discord Sharing Code",
+	"description": "Send examples code from editor to Discord",
+	"version": "1.0.1",
+	"engines": {
+		"vscode": "^1.46.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dwaps/discord-sharing-code"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:discord-sharing-code.dwapsInit",
+		"onCommand:discord-sharing-code.dwapsConnectBot",
+		"onCommand:discord-sharing-code.dwapsChannelId",
+		"onCommand:discord-sharing-code.dwapsShareCode"
+	],
+	"main": "./extension.js",
+	"icon": "dwaps-600.png",
+	"contributes": {
+		"commands": [
+			{
+				"command": "discord-sharing-code.dwapsInit",
+				"title": "Dwaps: Initialize Extension"
+			},
+			{
+				"command": "discord-sharing-code.dwapsConnectBot",
+				"title": "Dwaps: Connect Bot to a Discord Server"
+			},
+			{
+				"command": "discord-sharing-code.dwapsChannelId",
+				"title": "Dwaps: Connect Bot to a specific Discord channel"
+			},
+			{
+				"command": "discord-sharing-code.dwapsShareCode",
+				"title": "Dwaps: Share Code"
+			}
+		]
+	},
+	"publisher": "dwaps",
+	"homepage": "https://dwaps.fr",
+	"author": {
+		"email": "ei.dwaps@gmail.com",
+		"name": "Michael CORNILLON",
+		"url": "https://dwaps.fr"
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.46.0",
+		"eslint": "^7.19.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.2.1",
+		"nodemon": "^2.0.7",
+		"typescript": "^4.1.3",
+		"vscode-test": "^1.5.0"
+	},
+	"dependencies": {
+		"@discordjs/opus": "^0.5.0",
+		"bufferutil": "^4.0.3",
+		"discord.js": "^12.5.3",
+		"ffmpeg-static": "^4.3.0",
+		"node-opus": "^0.3.3",
+		"open": "^8.0.6",
+		"opusscript": "^0.0.8",
+		"rxjs": "^7.0.0",
+		"utf-8-validate": "^5.0.4"
+	},
+	"__metadata": {
+		"installedTimestamp": 1618554004065
+	}
+}
