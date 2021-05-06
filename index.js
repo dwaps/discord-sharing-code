@@ -22,7 +22,4 @@ exports.sendCodeToChannel = (CONTENT, CHANNEL_ID, FILE_NAME) => {
       "> ➡   " + FILE_NAME + "\n" +
       "```" + language + "\n" + CONTENT + "\n```");
   }
-  setTimeout(() => {
-    if (!process.env.WATCH_MODE) process.exit(0);
-  }, 500);
 }

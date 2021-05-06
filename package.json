@@ -18,7 +18,7 @@
 	"activationEvents": [
 		"onCommand:discord-sharing-code.init",
 		"onCommand:discord-sharing-code.connectBot",
-		"onCommand:discord-sharing-code.channelId",
+		"onCommand:discord-sharing-code.updateChannel",
 		"onCommand:discord-sharing-code.shareCode"
 	],
   "galleryBanner": {
@@ -38,7 +38,7 @@
 				"title": "Dwaps: Connect Bot to a Discord Server"
 			},
 			{
-				"command": "discord-sharing-code.channelId",
+				"command": "discord-sharing-code.updateChannel",
 				"title": "Dwaps: Update Channel"
 			},
 			{
