@@ -2,7 +2,7 @@
 	"name": "discord-sharing-code",
 	"displayName": "Discord Sharing Code",
 	"description": "[VERSION BETA] Send examples code from editor to Discord",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"engines": {
 		"vscode": "^1.46.0"
 	},

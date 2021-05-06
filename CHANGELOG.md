@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.1.2-beta]
+
+- Update Readme.
 ## [1.1.1-beta]
 
 - Update Readme.
