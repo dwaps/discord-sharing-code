@@ -2,7 +2,7 @@
 	"name": "discord-sharing-code",
 	"displayName": "Discord Sharing Code",
 	"description": "[VERSION BETA] Send examples code from editor to Discord",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
@@ -11,7 +11,9 @@
 		"url": "https://github.com/dwaps/discord-sharing-code"
 	},
 	"categories": [
-		"Other"
+		"Other",
+    "Education",
+    "Formatters"
 	],
 	"activationEvents": [
 		"onCommand:discord-sharing-code.init",
@@ -19,6 +21,10 @@
 		"onCommand:discord-sharing-code.channelId",
 		"onCommand:discord-sharing-code.shareCode"
 	],
+  "galleryBanner": {
+    "color": "#222222",
+    "theme": "dark"
+  },
 	"main": "./extension.js",
 	"icon": "dwaps-600.png",
 	"contributes": {
@@ -41,13 +47,16 @@
 			}
 		]
 	},
+  "keywords": [ "discord", "sharing", "code", "discord sharing", "discord sharing code", "sharing code", "share code", "discord share", "discord share code", "send code", "send code to discord", "sending code to discord", "share code to discord", "sharing code to discord", "send to share", "dwaps", "dwaps share code", "dwaps sharing code", "dwaps code", "michael", "michael cornillon", "michael share code", "michael sharing code", "cornillon", "cornillon share code", "cornillon sharing code", "trainer" ],
 	"publisher": "dwaps",
+  "preview": true,
 	"homepage": "https://dwaps.fr",
 	"author": {
 		"email": "ei.dwaps@gmail.com",
 		"name": "Michael CORNILLON",
 		"url": "https://dwaps.fr"
 	},
+  "markdown": "github",
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",

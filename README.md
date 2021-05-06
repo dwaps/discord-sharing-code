@@ -8,16 +8,19 @@ Support pédagogique de formation: outil permettant l'envoi d'exemples de code a
 
 ### Installation
 
-1. CRÉEZ UN BOT DISCORD: [https://discord.com/developers/applications](https://discord.com/developers/applications)
-![](https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/43664a0216d3221158be749f3d46344b/ss-create-app.png)
-2. RÉCUPÉREZ :
+1. CRÉEZ UN BOT DISCORD: [https://discord.com/developers/applications](https://discord.com/developers/applications)<br>
+<img src="https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/43664a0216d3221158be749f3d46344b/ss-create-app.png" width="500"><br><br>
+2. RÉCUPÉREZ :<br>
 ▶︎ l'identifiant de l'application dans le menu *'General Information'*.
-![](https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/71fb514d987ad4ef87b83b39f491eca8/ss-app-id.png)
+<img src="https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/71fb514d987ad4ef87b83b39f491eca8/ss-app-id.png" width="500"><br>
 ▶︎ le token de votre bot Discord depuis le menu *'Bot'*.
-![](https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/febb4453c38112def18f669c97c06c60/ss-bot-token.png)
-▶︎ l'identifiant du salon textuel de votre choix ([Comment trouver cet identifiant ?](#identifiant-du-salon-textuel)).
-![](https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/614d6faba1cd3b0c49a53ecbfddc10d4/ss-id-channel.png)
-3. Lancez la commande VSCode **"Dwaps: Initialize Extension"** `(Ctrl+Shift+P ou Cmd+Shift+P)` et entrez les informations pour initialiser votre extension VSCode.
+<img src="https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/febb4453c38112def18f669c97c06c60/ss-bot-token.png" width="500"><br>
+▶︎ l'identifiant du salon textuel de votre choix.
+<img src="https://trello-attachments.s3.amazonaws.com/59622f48b1b57f3517e67f5d/6092e23f33fb8f4dd48170f3/614d6faba1cd3b0c49a53ecbfddc10d4/ss-id-channel.png" height="300"><br><br>
+
+3. Lancez la commande **"Dwaps: Initialize Extension"** `(Ctrl+Shift+P ou Cmd+Shift+P)` et entrez les informations pour initialiser votre extension VSCode.<br><br>
+
+4. Lancez la commande  **"Dwaps: Connect Bot to a Discord Server"** `(Ctrl+Shift+P ou Cmd+Shift+P)` pour vous connecter au serveur de votre choix.
 
 ---
 
@@ -27,12 +30,6 @@ Pour partager du code, il suffit de se positionner dans le fichier de son choix 
 
 **Remarque:**
 A tout moment, vous pouvez mettre à jour l'identifiant du salon textuel via la commande VSCode **"Dwaps: Update Channel"**.
-
----
-
-##### Identifiant du salon textuel
-
-Pour trouver l'identifiant du salon auquel connecter le bot, il suffit de cliquer droit dessus. Le menu contextuel qui s'affiche offre alors la possibilité de copier l'identifiant par un simple clic
 
 ---
 
