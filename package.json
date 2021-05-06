@@ -1,8 +1,8 @@
 {
 	"name": "discord-sharing-code",
 	"displayName": "Discord Sharing Code",
-	"description": "Send examples code from editor to Discord",
-	"version": "1.0.1",
+	"description": "[VERSION BETA] Send examples code from editor to Discord",
+	"version": "1.1.0",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
@@ -14,29 +14,29 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:discord-sharing-code.dwapsInit",
-		"onCommand:discord-sharing-code.dwapsConnectBot",
-		"onCommand:discord-sharing-code.dwapsChannelId",
-		"onCommand:discord-sharing-code.dwapsShareCode"
+		"onCommand:discord-sharing-code.init",
+		"onCommand:discord-sharing-code.connectBot",
+		"onCommand:discord-sharing-code.channelId",
+		"onCommand:discord-sharing-code.shareCode"
 	],
 	"main": "./extension.js",
 	"icon": "dwaps-600.png",
 	"contributes": {
 		"commands": [
 			{
-				"command": "discord-sharing-code.dwapsInit",
+				"command": "discord-sharing-code.init",
 				"title": "Dwaps: Initialize Extension"
 			},
 			{
-				"command": "discord-sharing-code.dwapsConnectBot",
+				"command": "discord-sharing-code.connectBot",
 				"title": "Dwaps: Connect Bot to a Discord Server"
 			},
 			{
-				"command": "discord-sharing-code.dwapsChannelId",
-				"title": "Dwaps: Connect Bot to a specific Discord channel"
+				"command": "discord-sharing-code.channelId",
+				"title": "Dwaps: Update Channel"
 			},
 			{
-				"command": "discord-sharing-code.dwapsShareCode",
+				"command": "discord-sharing-code.shareCode",
 				"title": "Dwaps: Share Code"
 			}
 		]

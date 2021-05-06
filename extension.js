@@ -2,82 +2,101 @@ const path = require('path');
 const { writeFileSync } = require('fs');
 const { BehaviorSubject } = require('rxjs');
 const { ExtensionContext, window, commands } = require('vscode');
-const { BOT, sendContentOfActiveEditor, connectBotFromUrl } = require('./index');
-let botLogged = false, CHANNEL_ID = '';
+const { BOT, sendCodeToChannel, connectBotFromUrl } = require('./index');
+let mainConfig = null, CHANNEL_ID = '', subscription = null;
 
-const INITIALIZE_EXTENSION = 0;
-const CONNECT_BOT_COMMAND = 1;
-const CHANNEL_ID_COMMAND = 2;
-const SHARE_CODE_COMMAND = 3;
+const INITIALIZE_EXTENSION_CMD = 0;
+const CONNECT_BOT_CMD = 1;
+const CHANNEL_ID_CMD = 2;
+const SHARE_CODE_CMD = 3;
 const DWAPS_COMMANDS = [
-  'dwapsInit',
-  'dwapsConnectBot',
-  'dwapsChannelId',
-  'dwapsShareCode',
+  'init',
+  'connectBot',
+  'channelId',
+  'shareCode',
 ];
-const getCommands = name => 'discord-sharing-code.' + DWAPS_COMMANDS[name];
+const getCommands = idCommand => `discord-sharing-code.${DWAPS_COMMANDS[idCommand]}`;
 
 /**
  * @param {ExtensionContext} context
  */
 function activate(context) {
-  context.subscriptions.push(
-    commands.registerCommand(getCommands(INITIALIZE_EXTENSION), function () {
-      const envFileName = path.join(__dirname, 'environment.js');
-      const contentEnvFile = ({ appId, botToken }) => `module.exports = {
-        BOT_PERMISSIONS: '8',
-        APP_ID: '${appId}',
-        BOT_TOKEN: '${botToken}',
-        CHANNEL_ID: '',
-      };`;
-      const config = new BehaviorSubject({});
-      let sub = config.subscribe(data => {
-        if (data.appId && data.botToken) {
-          writeFileSync(envFileName, contentEnvFile(data), { encoding: 'utf8' });
-          sub.unsubscribe();
-        }
-      });
-      askForInit(['Your application id, please!', 'Your bot token, please!'], config);
-    }),
-    commands.registerCommand(getCommands(CONNECT_BOT_COMMAND), function () {
-      if (!botLogged) botLogged = loginBot();
-      const { BOT_PERMISSIONS, APP_ID } = require('./environment');
-      connectBotFromUrl(APP_ID, BOT_PERMISSIONS);
-    }),
-    commands.registerCommand(getCommands(CHANNEL_ID_COMMAND), function () {
-      if (!botLogged) botLogged = loginBot();
-      getChannelIdFromUser();
-    }),
-    commands.registerCommand(getCommands(SHARE_CODE_COMMAND), function () {
-      if (!botLogged) botLogged = loginBot();
-      const { document } = window.activeTextEditor;
-      if (document) {
-        const fileName = path.basename(document.fileName);
-        if (!CHANNEL_ID) {
-          getChannelIdFromUser(() => {
-            sendContentOfActiveEditor(
-              document.getText(),
-              CHANNEL_ID,
-              fileName);
-          });
-        }
-        else {
-          sendContentOfActiveEditor(
-            document.getText(),
-            CHANNEL_ID,
-            fileName);
-        }
+
+  // INITIALIZE EXTENSION FUNCTION
+  function initializeExtension() {
+    const envFileName = path.join(__dirname, 'environment.js');
+    mainConfig = new BehaviorSubject({});
+    subscription = mainConfig.subscribe(data => {
+      if (data.appId && data.botToken && data.channelId) {
+        const { appId, botToken, channelId } = data;
+        writeFileSync(
+          envFileName,
+          `module.exports = { BOT_PERMISSIONS: '8', APP_ID: '${appId}', BOT_TOKEN: '${botToken}', CHANNEL_ID: '${channelId}'};`,
+          { encoding: 'utf8' });
+        CHANNEL_ID = channelId;
+        loginBot();
       }
-    })
+    });
+    askForInit([
+      'Your application id, please!',
+      'And now, your bot token!',
+      'And... the channel id you want to share code.'
+    ], mainConfig);
+  }
+  // CONNECT BOT FUNCTION
+  function connectBot() {
+    if (!mainConfig) {
+      initializeExtension();
+      return;
+    }
+    const { BOT_PERMISSIONS, APP_ID } = require('./environment');
+    connectBotFromUrl(APP_ID, BOT_PERMISSIONS);
+  }
+  // GET CHANNEL ID FUNCTION
+  function updateChannelId() {
+    if (!mainConfig) {
+      initializeExtension();
+      return;
+    }
+    askForInit([
+      'Your new channel id, please!',
+    ], mainConfig);
+  }
+  // SHARE CODE FUNCTION
+  function shareCode() {
+    if (!mainConfig) {
+      initializeExtension();
+      return;
+    }
+    const { document } = window.activeTextEditor;
+    if (document) {
+      const fileName = path.basename(document.fileName);
+      if (CHANNEL_ID) {
+        sendCodeToChannel(
+          document.getText(),
+          CHANNEL_ID,
+          fileName);
+      }
+      else {
+        console.log("\n[DWAPS ERROR]: L'identifiant du channel n'existe pas ou n'est pas valable!\n")
+      }
+    }
+  }
+
+  context.subscriptions.push(
+    commands.registerCommand(getCommands(INITIALIZE_EXTENSION_CMD), initializeExtension),
+    commands.registerCommand(getCommands(CONNECT_BOT_CMD), connectBot),
+    commands.registerCommand(getCommands(CHANNEL_ID_CMD), updateChannelId),
+    commands.registerCommand(getCommands(SHARE_CODE_CMD), shareCode)
   );
 }
 
+// FUNCTIONS
 function loginBot() {
   const { BOT_TOKEN } = require('./environment');
   BOT.login(BOT_TOKEN).catch(console.error);
   return true;
 }
-
 function askForInit(placeholders, config) {
   if (placeholders && placeholders.length) {
     const inputBox = window.createInputBox();
@@ -92,6 +111,8 @@ function askForInit(placeholders, config) {
           config.next({ appId: userInput });
         } else if (ph.includes("bot token")) {
           config.next({ ...config.getValue(), botToken: userInput });
+        } else if (ph.includes("channel id")) {
+          config.next({ ...config.getValue(), channelId: userInput });
         }
         inputBox.hide();
         placeholders.shift();
@@ -100,11 +121,10 @@ function askForInit(placeholders, config) {
     })
   }
 }
-
 function getChannelIdFromUser(callback) {
   const inputBox = window.createInputBox();
   inputBox.title = 'Discord Sharing Code';
-  inputBox.placeholder = 'Your Discord channel ID, please!';
+  inputBox.placeholder = 'Your new channel id, please!';
   inputBox.show();
   inputBox.onDidAccept((e) => {
     if (inputBox.value && inputBox.value.length === 18) {
@@ -115,7 +135,9 @@ function getChannelIdFromUser(callback) {
   })
 }
 
-function deactivate() {}
+function deactivate() {
+  if (subscription) subscription.unsubscribe();
+}
 
 module.exports = {
 	activate,
