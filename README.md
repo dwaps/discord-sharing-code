@@ -34,4 +34,29 @@ A tout moment, vous pouvez mettre à jour l'identifiant du salon textuel via la 
 
 ---
 
+### Raccourcis claviers
+
+(Pour Mac: `Ctrl` ==> `Cmd`)
+
+| Commande | Raccourci |
+| - | - | - |
+| Dwaps: Initialize Extension             | `Ctrl+i Ctrl+i` |
+| Dwaps: Connect Bot to a Discord Server  | `Ctrl+o Ctrl+o` |
+| Dwaps: Update Channel                   | `Ctrl+u Ctrl+u` |
+| Dwaps: Share Code                       | `Ctrl+c Ctrl+c` |
+
+---
+
+### Remarque
+
+Dans une prochaine mise à jour, j'ajouterais la possibilité de renseigner les divers éléments de configuration via les settings de VSCode (ce qui sera beaucoup plus confortable). En attendant, si vous rencontrez des difficultés à entrer vos informations vous pouvez suivre la petite astuce ci-dessous.
+
+Pour renseigner l'**app id**, le **bot token** et le **channel id** au moment de la configuration initiale de l'extension (via la commande **"Dwaps: Initialize Extension"**): créez une seule chaine de caractère avec vos identifants du genre `XXXAPP_IDXXX XXXBOT_TOKENXXX XXXCHANNEL_IDXXX` (exemple: `778855664455334422 7Dh7885ik56644OO55ULOp22.YHa7ZQ.77885yHtYIiuiAYfGGvREt22-Z 778855664455334422`).
+
+Il vous suffira ensuite de copier toute la chaine lors des demandes de renseignements, et de la réduire en coupant les infos en trop pour pouvoir les recoller à la question suivante. Ainsi de suite... Si vous rencontrez des difficultés à saisirs vos infos, n'hésitez pas à me contacter pour que je vous explique la démarche.
+
+Désolé d'avance pour ce manque d'ergonomie mais j'ai comme excuse que l'extension est en version bêta: je ferais mon possible pour l'améliorer rapidement ! 🙂
+
+---
+
 [® DWAPS Formation - Michael Cornillon](https://dwaps.fr "DWAPS")

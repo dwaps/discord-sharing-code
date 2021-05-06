@@ -2,7 +2,7 @@
 	"name": "discord-sharing-code",
 	"displayName": "Discord Sharing Code",
 	"description": "[VERSION BETA] Send examples code from editor to Discord",
-	"version": "1.1.2",
+	"version": "1.2.0",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
@@ -28,6 +28,29 @@
 	"main": "./extension.js",
 	"icon": "dwaps-600.png",
 	"contributes": {
+    "keybindings": [
+      {
+        "command": "discord-sharing-code.init",
+        "key": "ctrl+i ctrl+i",
+        "mac": "cmd+i cmd+i"
+      },
+      {
+        "command": "discord-sharing-code.connectBot",
+        "key": "ctrl+o ctrl+o",
+        "mac": "cmd+o cmd+o"
+      },
+      {
+        "command": "discord-sharing-code.updateChannel",
+        "key": "ctrl+u ctrl+u",
+        "mac": "cmd+u cmd+u"
+      },
+      {
+        "command": "discord-sharing-code.shareCode",
+        "key": "ctrl+c ctrl+c",
+        "mac": "cmd+c cmd+c",
+        "when": "editorIsOpen"
+      }
+    ],
 		"commands": [
 			{
 				"command": "discord-sharing-code.init",

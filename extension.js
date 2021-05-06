@@ -101,6 +101,7 @@ function activate(context) {
       const { document } = window.activeTextEditor;
       if (document) {
         const fileName = path.basename(document.fileName);
+        delete require.cache[path.join(__dirname, 'environment.json')];
         const { CHANNEL_ID } = require('./environment');
         sendCodeToChannel(
           document.getText(),
