@@ -2,7 +2,7 @@
 
 ## [VERSION BETA] Extension VSCode: Discord Sharing Code
 
-Support pédagogique de formation: outil permettant l'envoi d'exemples de code aux élèves.
+Support pédagogique de formation: outil permettant l'envoi d'exemples de code aux élèves. ([Vidéo de présentation](https://www.youtube.com/watch?v=ukrWtrl47kQ))
 
 ---
 
