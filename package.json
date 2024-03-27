@@ -1,33 +1,33 @@
 {
-	"name": "discord-sharing-code",
-	"displayName": "Discord Sharing Code",
-	"description": "[VERSION BETA] Send examples code from editor to Discord",
-	"version": "1.2.1",
-	"engines": {
-		"vscode": "^1.46.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/dwaps/discord-sharing-code"
-	},
-	"categories": [
-		"Other",
+  "name": "dwaps-sharing-code",
+  "displayName": "dwaps-sharing-code",
+  "description": "[VERSION BETA] Send examples code from editor to Discord",
+  "version": "1.2.2",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwaps/discord-sharing-code"
+  },
+  "categories": [
+    "Other",
     "Education",
     "Formatters"
-	],
-	"activationEvents": [
-		"onCommand:discord-sharing-code.init",
-		"onCommand:discord-sharing-code.connectBot",
-		"onCommand:discord-sharing-code.updateChannel",
-		"onCommand:discord-sharing-code.shareCode"
-	],
+  ],
   "galleryBanner": {
     "color": "#222222",
     "theme": "dark"
   },
-	"main": "./extension.js",
-	"icon": "dwaps-600.png",
-	"contributes": {
+  "activationEvents": [
+    "onCommand:discord-sharing-code.init",
+    "onCommand:discord-sharing-code.connectBot",
+    "onCommand:discord-sharing-code.updateChannel",
+    "onCommand:discord-sharing-code.shareCode"
+  ],
+  "main": "./extension.js",
+  "icon": "dwaps-600.png",
+  "contributes": {
     "keybindings": [
       {
         "command": "discord-sharing-code.init",
@@ -46,69 +46,84 @@
       },
       {
         "command": "discord-sharing-code.shareCode",
-        "key": "ctrl+c ctrl+c",
-        "mac": "cmd+c cmd+c",
+        "key": "ctrl+alt+s ctrl+alt+s",
+        "mac": "cmd+alt+s cmd+alt+s",
         "when": "editorIsOpen"
       }
     ],
-		"commands": [
-			{
-				"command": "discord-sharing-code.init",
-				"title": "Dwaps: Initialize Extension"
-			},
-			{
-				"command": "discord-sharing-code.connectBot",
-				"title": "Dwaps: Connect Bot to a Discord Server"
-			},
-			{
-				"command": "discord-sharing-code.updateChannel",
-				"title": "Dwaps: Update Channel"
-			},
-			{
-				"command": "discord-sharing-code.shareCode",
-				"title": "Dwaps: Share Code"
-			}
-		]
-	},
-  "keywords": [ "discord", "sharing", "code", "discord sharing", "discord sharing code", "sharing code", "share code", "discord share", "discord share code", "send code", "send code to discord", "sending code to discord", "share code to discord", "sharing code to discord", "send to share", "dwaps", "dwaps share code", "dwaps sharing code", "dwaps code", "michael", "michael cornillon", "michael share code", "michael sharing code", "cornillon", "cornillon share code", "cornillon sharing code", "trainer" ],
-	"publisher": "dwaps",
+    "commands": [
+      {
+        "command": "discord-sharing-code.init",
+        "title": "Dwaps: Initialize Extension"
+      },
+      {
+        "command": "discord-sharing-code.connectBot",
+        "title": "Dwaps: Connect Bot to a Discord Server"
+      },
+      {
+        "command": "discord-sharing-code.updateChannel",
+        "title": "Dwaps: Update Channel"
+      },
+      {
+        "command": "discord-sharing-code.shareCode",
+        "title": "Dwaps: Share Code"
+      }
+    ]
+  },
+  "keywords": [
+    "discord",
+    "sharing",
+    "code",
+    "discord sharing",
+    "discord sharing code",
+    "sharing code",
+    "share code",
+    "discord share",
+    "discord share code",
+    "send code",
+    "send code to discord",
+    "sending code to discord",
+    "share code to discord",
+    "sharing code to discord",
+    "send to share",
+    "dwaps",
+    "dwaps share code",
+    "dwaps sharing code",
+    "dwaps code",
+    "michael",
+    "michael cornillon",
+    "michael share code",
+    "michael sharing code",
+    "cornillon",
+    "cornillon share code",
+    "cornillon sharing code",
+    "trainer"
+  ],
+  "publisher": "dwaps",
   "preview": true,
-	"homepage": "https://dwaps.fr",
-	"author": {
-		"email": "ei.dwaps@gmail.com",
-		"name": "Michael CORNILLON",
-		"url": "https://dwaps.fr"
-	},
+  "homepage": "https://dwaps.fr",
+  "author": {
+    "email": "ei.dwaps@gmail.com",
+    "name": "Michael CORNILLON",
+    "url": "https://dwaps.fr"
+  },
   "markdown": "github",
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.46.0",
-		"eslint": "^7.19.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.2.1",
-		"nodemon": "^2.0.7",
-		"typescript": "^4.1.3",
-		"vscode-test": "^1.5.0"
-	},
-	"dependencies": {
-		"@discordjs/opus": "^0.5.0",
-		"bufferutil": "^4.0.3",
-		"discord.js": "^12.5.3",
-		"ffmpeg-static": "^4.3.0",
-		"node-opus": "^0.3.3",
-		"open": "^8.0.6",
-		"opusscript": "^0.0.8",
-		"rxjs": "^7.0.0",
-		"utf-8-validate": "^5.0.4"
-	},
-	"__metadata": {
-		"installedTimestamp": 1618554004065
-	}
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "pnpm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.87.0",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "rxjs": "^7.8.1"
+  }
 }

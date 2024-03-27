@@ -1,70 +1,72 @@
-const path = require('path');
-const { writeFile, existsSync } = require('fs');
-const { BehaviorSubject } = require('rxjs');
-const { ExtensionContext, window, commands } = require('vscode');
-const { BOT, sendCodeToChannel, connectBotFromUrl } = require('./index');
+const path = require("path");
+const { writeFile, existsSync } = require("fs");
+const { BehaviorSubject } = require("rxjs");
+const vscode = require("vscode");
+const { BOT, sendCodeToChannel, connectBotFromUrl } = require("./index");
 
-let sub1 = null, sub2 = null, mainConfig = new BehaviorSubject({});
-const envFileName = path.join(__dirname, 'environment.json');
+let sub1 = null,
+  sub2 = null,
+  mainConfig = new BehaviorSubject({});
+const envFileName = path.join(__dirname, "environment.json");
 let botLogged = false;
-existsSync(envFileName) && loginBot()
-  .then(() => botLogged = true)
-  .catch(console.error);
+existsSync(envFileName) &&
+  loginBot()
+    .then(() => (botLogged = true))
+    .catch(console.error);
 
 const INITIALIZE_EXTENSION_CMD = 0;
 const CONNECT_BOT_CMD = 1;
 const CHANNEL_ID_CMD = 2;
 const SHARE_CODE_CMD = 3;
-const DWAPS_COMMANDS = [
-  'init',
-  'connectBot',
-  'updateChannel',
-  'shareCode',
-];
-const getCommands = idCommand => `discord-sharing-code.${DWAPS_COMMANDS[idCommand]}`;
+const DWAPS_COMMANDS = ["init", "connectBot", "updateChannel", "shareCode"];
+const getCommands = (idCommand) =>
+  `discord-sharing-code.${DWAPS_COMMANDS[idCommand]}`;
 
 /**
- * @param {ExtensionContext} context
+ * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-
-  sub1 = mainConfig.subscribe(data => {
+  sub1 = mainConfig.subscribe((data) => {
     if (data.APP_ID && data.BOT_TOKEN && data.CHANNEL_ID) {
       data.BOT_PERMISSIONS = 8;
-    }
-    else if (data.CHANNEL_ID && existsSync(envFileName)) {
-      const { APP_ID, BOT_PERMISSIONS, BOT_TOKEN } = require('./environment');
+    } else if (data.CHANNEL_ID && existsSync(envFileName)) {
+      const { APP_ID, BOT_PERMISSIONS, BOT_TOKEN } = require("./environment");
       data.APP_ID = APP_ID;
       data.BOT_PERMISSIONS = BOT_PERMISSIONS;
       data.BOT_TOKEN = BOT_TOKEN;
-    }
-    else if (data.CHANNEL_ID && !existsSync(envFileName)) {
+    } else if (data.CHANNEL_ID && !existsSync(envFileName)) {
       initializeExtension(data.CHANNEL_ID);
       return;
     }
-    if (data.APP_ID && data.BOT_PERMISSIONS && data.BOT_TOKEN && data.CHANNEL_ID) {
+    if (
+      data.APP_ID &&
+      data.BOT_PERMISSIONS &&
+      data.BOT_TOKEN &&
+      data.CHANNEL_ID
+    ) {
       writeFile(envFileName, JSON.stringify(data), (err) => {
-          if (err) throw `\n[DWAPS ERROR]: ${err}\n`;
-          if (!botLogged) {
-            loginBot()
-              .then(() => botLogged = true) 
-              .catch(console.error);
-          }
+        if (err) throw `\n[DWAPS ERROR]: ${err}\n`;
+        if (!botLogged) {
+          loginBot()
+            .then(() => (botLogged = true))
+            .catch(console.error);
         }
-      );
+      });
     }
   });
 
   // INITIALIZE EXTENSION FUNCTION
   function initializeExtension(channelId, cb) {
-    const asks = [
-      'Your application id, please!',
-      'And now, your bot token!',
-    ];
-    if (!channelId) asks.push('And... the channel id you want to share code.');
+    const asks = ["Your application id, please!", "And now, your bot token!"];
+    if (!channelId) asks.push("And... the channel id you want to share code.");
     askForInit(asks, mainConfig);
     sub2 = mainConfig.subscribe((data) => {
-      if (data.APP_ID && data.BOT_PERMISSIONS && data.BOT_TOKEN && data.CHANNEL_ID) {
+      if (
+        data.APP_ID &&
+        data.BOT_PERMISSIONS &&
+        data.BOT_TOKEN &&
+        data.CHANNEL_ID
+      ) {
         setTimeout(() => {
           cb();
         }, 500);
@@ -78,7 +80,7 @@ function activate(context) {
       initializeExtension(null, connectBotToServer);
       return;
     }
-    const { BOT_PERMISSIONS, APP_ID } = require('./environment');
+    const { BOT_PERMISSIONS, APP_ID } = require("./environment");
     connectBotFromUrl(APP_ID, BOT_PERMISSIONS);
   }
   // UPDATE CHANNEL ID FUNCTION
@@ -87,54 +89,59 @@ function activate(context) {
       initializeExtension();
       return;
     }
-    askForInit([
-      'Your new channel id, please!',
-    ], mainConfig);
+    askForInit(["Your new channel id, please!"], mainConfig);
   }
   // SHARE CODE FUNCTION
   function shareCode() {
-    if (!existsSync(envFileName)) {
-      initializeExtension(null, shareCode);
-      return;
-    }
-    if (botLogged) {
-      const { document } = window.activeTextEditor;
-      if (document) {
-        const fileName = path.basename(document.fileName);
-        delete require.cache[path.join(__dirname, 'environment.json')];
-        const { CHANNEL_ID } = require('./environment');
-        sendCodeToChannel(
-          document.getText(),
-          CHANNEL_ID,
-          fileName);
-      }
-    }
-    else {
-      loginBot().then(() => {
-        botLogged = true;
-        shareCode();
-      }).catch(console.error);
-    }
+    // if (!existsSync(envFileName)) {
+    //   initializeExtension(null, shareCode);
+    //   return;
+    // }
+    // if (botLogged) {
+    const { document } = vscode.window.activeTextEditor;
+    //   if (document) {
+    const fileName = path.basename(document.fileName);
+    delete require.cache[path.join(__dirname, "environment.json")];
+    const { CHANNEL_ID } = require("./environment");
+    sendCodeToChannel(document.getText(), CHANNEL_ID, fileName);
+    //   }
+    // } else {
+    //   loginBot()
+    //     .then(() => {
+    //       botLogged = true;
+    //       shareCode();
+    //     })
+    //     .catch(console.error);
+    // }
   }
 
   context.subscriptions.push(
-    commands.registerCommand(getCommands(INITIALIZE_EXTENSION_CMD), initializeExtension),
-    commands.registerCommand(getCommands(CONNECT_BOT_CMD), connectBotToServer),
-    commands.registerCommand(getCommands(CHANNEL_ID_CMD), updateChannelId),
-    commands.registerCommand(getCommands(SHARE_CODE_CMD), shareCode)
+    vscode.commands.registerCommand(
+      getCommands(INITIALIZE_EXTENSION_CMD),
+      initializeExtension
+    ),
+    vscode.commands.registerCommand(
+      getCommands(CONNECT_BOT_CMD),
+      connectBotToServer
+    ),
+    vscode.commands.registerCommand(
+      getCommands(CHANNEL_ID_CMD),
+      updateChannelId
+    ),
+    vscode.commands.registerCommand(getCommands(SHARE_CODE_CMD), shareCode)
   );
 }
 
 // FUNCTIONS
 function loginBot() {
-  const { BOT_TOKEN } = require('./environment');
+  const { BOT_TOKEN } = require("./environment");
   return BOT.login(BOT_TOKEN);
 }
 function askForInit(placeholders, config) {
   if (placeholders && placeholders.length) {
-    const inputBox = window.createInputBox();
-    const [ ph ] = placeholders;
-    inputBox.title = 'Discord Sharing Code';
+    const inputBox = vscode.window.createInputBox();
+    const [ph] = placeholders;
+    inputBox.title = "Discord Sharing Code";
     inputBox.placeholder = ph;
     inputBox.show();
     inputBox.onDidAccept((e) => {
@@ -151,17 +158,17 @@ function askForInit(placeholders, config) {
         placeholders.shift();
         askForInit(placeholders, config);
       }
-    })
+    });
   }
 }
 
 function deactivate() {
-  console.info("\n[DWAPS INFO]: Fonction deactivate appelée !\n")
+  console.info("\n[DWAPS INFO]: Fonction deactivate appelée !\n");
   if (sub1) sub1.unsubscribe();
   if (sub2) sub2.unsubscribe();
 }
 
 module.exports = {
-	activate,
-	deactivate
-}
+  activate,
+  deactivate,
+};

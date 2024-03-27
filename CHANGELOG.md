@@ -3,6 +3,7 @@
 ## [1.2.1-beta]
 
 - Update Readme.
+
 ## [1.2.0-beta]
 
 - Various improvments. Add keybindings.
