@@ -1,6 +1,6 @@
 {
   "name": "dwaps-sharing-code",
-  "displayName": "dwaps-sharing-code",
+  "displayName": "Dwaps Sharing Code",
   "description": "[VERSION BETA] Send examples code from editor to Discord",
   "version": "1.2.2",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dwaps/discord-sharing-code"
+    "url": "https://github.com/dwaps/dwaps-sharing-code"
   },
   "categories": [
     "Other",
@@ -99,7 +99,7 @@
     "cornillon sharing code",
     "trainer"
   ],
-  "publisher": "dwaps",
+  "publisher": "michaelcornillon",
   "preview": true,
   "homepage": "https://dwaps.fr",
   "author": {
