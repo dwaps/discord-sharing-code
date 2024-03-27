@@ -2,7 +2,7 @@
   "name": "dwaps-sharing-code",
   "displayName": "Dwaps Sharing Code",
   "description": "[VERSION BETA] Send examples code from editor to Discord",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -124,6 +124,7 @@
   },
   "dependencies": {
     "discord.js": "^14.14.1",
+    "open": "^8.4.0",
     "rxjs": "^7.8.1"
   }
 }
