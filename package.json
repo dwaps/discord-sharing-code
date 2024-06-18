@@ -123,7 +123,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "discord.js": "^14.14.1",
+    "discord.js": "^14.15.3",
     "open": "^8.4.0",
     "rxjs": "^7.8.1"
   }
